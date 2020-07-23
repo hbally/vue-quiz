@@ -56,6 +56,9 @@
     import axios from 'axios'
     export default {
         name: "GameForm",
+        components: {
+            LoadingIcon
+        },
         data() {
             return {
                 // Form data, tied to respective inputs

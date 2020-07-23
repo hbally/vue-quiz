@@ -9,6 +9,9 @@
     import Answer from '../components/Answer'
     export default {
         name: "GameOver",
+        components: {
+            Answer
+        },
         data() {
             return {
                 questions: [],
