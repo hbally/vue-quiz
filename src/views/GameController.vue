@@ -4,7 +4,11 @@
         <Question :question="currentQuestion" @answer-submitted="onAnswerSubmit" v-else></Question>
     </div>
 </template>
-
+<!--
+1.fetchQuestions 函数通过请求远程接口获得问题列表。
+2.setQuestions 保存远程回应的问题列表到本地数组。
+3.onAnswerSubmit 处理用户提交的选项，调用 nextQuestion 函数返回下一问题。
+-->
 <script>
     import EventBus from '../eventBus'
     import ShuffleMixin from '../mixins/shuffleMixin'
