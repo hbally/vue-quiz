@@ -1,17 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="bg-light">
+    <Navbar></Navbar>
+    <b-alert :show="dismissCountdown" dismissible variant="danger" @dismissed="dismissCountdown = 0">
+      {{ errorMessage }}
+    </b-alert>
+    <div class="d-flex justify-content-center">
+      <b-card no-body id="main-card" class="col-sm-12 col-lg-4 px-0">
+        <router-view></router-view>
+      </b-card>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import EventBus from './eventBus'
+import Navbar from './components/Navbar'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Navbar
+  },
+  data() {
+    return {
+      errorMessage: '',
+      dismissSecs: 5,
+      dismissCountdown: 0
+    }
+  },
+  methods: {
+    showAlert(error) {
+      this.errorMessage = error
+      this.dismissCountdown = this.dismissSecs
+    }
+  },
+  mounted() {
+    EventBus.$on('alert-error', (error) => {
+      this.showAlert(error)
+    })
+  },
+  beforeDestroy() {
+    EventBus.$off('alert-error')
   }
 }
 </script>
